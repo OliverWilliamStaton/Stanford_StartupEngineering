@@ -1,11 +1,23 @@
 var fs = require('fs');
-var express = require('express');
-var app = express.createServer(express.logger());
+//var express = require('express');
+//var app = express.createServer(express.logger());
+var fileName = "index.html";
 
-fs.readFile("index.html", function (err, data) {
-  if (err) {
-    throw err;
-  }
+fs.stat(fileName, function(error,stats) {
+  
+  fs.open(fileName, "r", function(error,fd) {
+    var buf = new Buffer(stats.size);
+
+    fs.read(fd, buf, 0, buf.length, null, function(error, bytesRead, buf) {
+      var data = buf.toString("utf8", 0, buf.length);
+      console.log(data);
+      fs.close(fd);
+    });
+  });
+});
+
+/*
+fs.readFileSync("index.html", buf) {
   app.get('/', function(request, resonse) {
     var buf = new Buffer(data);
     response.send(buf.toString());
@@ -16,3 +28,4 @@ fs.readFile("index.html", function (err, data) {
     console.log("Listening on " + port);
   });
 });
+*/
