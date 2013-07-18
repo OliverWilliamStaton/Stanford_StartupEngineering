@@ -1,4 +1,4 @@
-var fs = require('fs');
+//var fs = require('fs');
 var express = require('express');
 var app = express.createServer(express.logger());
 //var fileName = "index.html";
@@ -18,7 +18,7 @@ fs.stat(fileName, function(error,stats) {
 });
 */
 
-app.get('/', function(request, resonse) {
+app.get('/', function(request, response) {
 //  var buf = new Buffer(data);
   response.send("Trial Run");
 });
